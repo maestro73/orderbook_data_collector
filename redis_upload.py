@@ -12,8 +12,8 @@ def upload(key, value):
         host=redis_host,
         port=redis_port,
         password=redis_password)
-
     try:
+        r.ping()
         r.append(key, value) if r.exists(key) else r.set(key, value)
     except Exception as e:
         print(e)

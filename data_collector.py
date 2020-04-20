@@ -6,6 +6,7 @@ import time
 
 import redis_upload
 
+
 # decompress the received data
 def inflate(data):
     decompress = zlib.decompressobj(-zlib.MAX_WBITS)

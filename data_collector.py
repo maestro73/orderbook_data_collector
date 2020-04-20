@@ -28,8 +28,6 @@ def on_message(ws, message):
         if "table" in msg:
             order_book = msg['data']
             print(order_book)
-            print(msg['table'])
-            print(msg['table'] + ":" + order_book[0]['instrument_id'])
             redis_upload.upload(msg['table'] + ":" + order_book[0]['instrument_id'], str(order_book))
     except Exception as e:
         print(e)

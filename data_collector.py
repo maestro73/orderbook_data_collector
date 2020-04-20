@@ -23,13 +23,14 @@ def on_message(ws, message):
             return
         global order_book
         msg = json.loads(inflated)
-        if "channel" in msg and 'spot/depth5:ETH-USDT' == msg["channel"]:  # check whether the correct channel is subscribed
+        if "channel" in msg:  # check whether the correct channel is subscribed
             print(msg["channel"] + " subscribed.")
-        if "table" in msg and 'spot/depth5' == msg["table"]:  # check the data type
-            for data in msg["data"]:
-                order_book = data
-                print(order_book)
-                redis_upload.upload('spot/depth5:ETH-USDT', str(order_book))
+        if "table" in msg:
+            order_book = msg['data']
+            print(order_book)
+            print(msg['table'])
+            print(msg['table'] + ":" + order_book[0]['instrument_id'])
+            redis_upload.upload(msg['table'] + ":" + order_book[0]['instrument_id'], str(order_book))
     except Exception as e:
         print(e)
 
@@ -44,6 +45,7 @@ def on_close(ws):
 
 # send request when connection is started
 def on_open(ws):
+    ws.send('{"op": "subscribe", "args": ["spot/depth5:BTC-USDT"]}')
     ws.send('{"op": "subscribe", "args": ["spot/depth5:ETH-USDT"]}')
 
 

@@ -105,16 +105,16 @@ def main(date, profit, bitmex_balance, okex_balance):
 
 
 if __name__ == "__main__":
-    date = datetime.datetime(2020, 1, 1)
+    start_date = datetime.datetime(2020, 1, 31)
     total_profit = 0
     bitmex_balance = 500000
     okex_balance = 500000
     for i in range(0, 31):
         start_time = time.time()
-        date += datetime.timedelta(days=i)
+        date = start_date + datetime.timedelta(days=i)
         daily_trades = main(date, total_profit, bitmex_balance, okex_balance)
         total_profit += daily_trades[0]
         bitmex_balance = daily_trades[1]
         okex_balance = daily_trades[2]
         print("--- %s minutes ---" % ((time.time() - start_time) / 60.0))
-
+    print('Total profit: ' + str(total_profit))

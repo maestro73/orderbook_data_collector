@@ -105,7 +105,7 @@ def main(date, profit, bitmex_balance, okex_balance):
 
 
 if __name__ == "__main__":
-    start_date = datetime.datetime(2020, 1, 31)
+    start_date = datetime.datetime(2020, 1, 1)
     total_profit = 0
     bitmex_balance = 500000
     okex_balance = 500000

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Imports
+
 import pandas as pd
 import datetime
 import time
